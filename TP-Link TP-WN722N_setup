@@ -1,0 +1,37 @@
+March 29,2023
+
+When I first installed the TP-Link TP-WN722N I am not able to go to monitor mode.. I searched and found this script to fix the monitor mode of this device.
+Thank you for the people who are behind this script and for sharing
+
+```
+git clone https://github.com/gglluukk/rtl8188eus
+echo 'blacklist r8188eu'|sudo tee -a '/etc/modprobe.d/realtek.conf'
+Reboot
+cd rtl8188eus
+make && sudo make install
+Reboot 
+sudo airmon-ng check kill
+sudo ip link set <interface> down
+sudo iw dev <interface> set type monitor
+
+Frame injection test may be performed with (after kernel v5.2 scanning is slow, run a scan or simply an airodump-ng first!)
+
+aireplay -9 <interface>
+Add these lines below to "/etc/NetworkManager/NetworkManager.conf" and ADD YOUR ADAPTER MAC below [keyfile] This will make the Network-Manager ignore the device, and therefore don't cause problems.
+
+[device]
+wifi.scan-rand-mac-address=no
+
+[ifupdown]
+managed=false
+
+[connection]
+wifi.powersave=0
+
+[main]
+plugins=keyfile
+
+[keyfile]
+unmanaged-devices=mac:A7:A7:A7:A7:A7
+
+
