@@ -34,4 +34,9 @@ plugins=keyfile
 [keyfile]
 unmanaged-devices=mac:A7:A7:A7:A7:A7
 
-
+Additionaly, my lan connection was gone after installing so I reinstalled my lan configuration using this command
+sudo nano /etc/network/interfaces
+add this two lines 
+auto eth0
+iface eth0 inet dhcp
+reboot
